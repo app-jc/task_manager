@@ -1,15 +1,8 @@
-import 'dart:ui';
-
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
-import 'package:task_manager_coding_test/features/home/presentation/widgets/daily_quote_widget.dart';
+import 'package:task_manager_coding_test/features/home/presentation/widgets/daily_quote_card_widget.dart';
 import 'package:task_manager_coding_test/features/home/presentation/widgets/open_container_wrapper.dart';
-import 'package:task_manager_coding_test/features/splash/presentation/splash_screen.dart';
-import 'package:task_manager_coding_test/routing/screen_paths.dart';
-
-import 'daily_quote_story_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -31,11 +24,14 @@ class HomeScreen extends StatelessWidget {
                   .copyWith(color: Colors.grey, letterSpacing: 1.5),
             ),
             Gap(22),
-            GestureDetector(
-                onTap: () {
-                  context.push(ScreenPaths.quoteStory);
-                },
-                child: DailyQuoteCardWidget())
+            OpenContainerWrapper(
+              closedBuilder: (context, openContainer) {
+                return GestureDetector(
+                    onTap: openContainer, child: DailyQuoteCardWidget());
+              },
+              transitionType: ContainerTransitionType.fadeThrough,
+              onClosed: (bool? data) {},
+            )
           ],
         ),
       ),

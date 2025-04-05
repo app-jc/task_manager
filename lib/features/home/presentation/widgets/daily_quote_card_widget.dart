@@ -27,10 +27,10 @@ class DailyQuoteCardWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Quote of the Day'),
-                Icon(
-                  Icons.favorite_rounded,
-                  size: 22,
-                  color: Colors.redAccent,
+                Image.asset(
+                  'assets/icons/expand.png',
+                  height: 18,
+                  color: Colors.white,
                 )
               ],
             ),
@@ -58,12 +58,12 @@ class DailyQuoteCardWidget extends StatelessWidget {
             ),
             Expanded(child: SizedBox()),
             Align(
-              alignment: Alignment.topRight,
-              child: Icon(
-                Icons.fullscreen_rounded,
-                size: 22,
-              ),
-            )
+                alignment: Alignment.topLeft,
+                child: Icon(
+                  Icons.favorite_rounded,
+                  size: 22,
+                  color: Colors.redAccent,
+                ))
           ],
         ),
       ),

@@ -34,7 +34,9 @@ final appRouter = GoRouter(
 
 class AppRoute extends GoRoute {
   AppRoute(String path, Widget Function(GoRouterState s) builder,
-      {List<GoRoute> routes = const [], this.useFade = false})
+      {List<GoRoute> routes = const [],
+      this.useFade = false,
+      this.useScale = false})
       : super(
           path: path,
           routes: routes,
@@ -43,6 +45,7 @@ class AppRoute extends GoRoute {
               body: builder(state),
               resizeToAvoidBottomInset: false,
             );
+
             if (useFade) {
               return CustomTransitionPage(
                 key: state.pageKey,
@@ -57,4 +60,5 @@ class AppRoute extends GoRoute {
           },
         );
   final bool useFade;
+  final bool useScale;
 }
