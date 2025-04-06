@@ -27,7 +27,7 @@ List<TaskMenu> kTaskMenu = [
     ),
   ),
   TaskMenu(
-    value: '8',
+    value: '0',
     label: 'Due',
     icon: Image.asset(
       'assets/icons/due.png',
@@ -44,13 +44,13 @@ List<TaskMenu> kTaskMenu = [
       color: Colors.green,
     ),
   ),
-  TaskMenu(
-    value: '2',
-    label: 'Incomplete',
-    icon: Image.asset(
-      'assets/icons/incomplete.png',
-      height: 22,
-      color: Colors.grey,
-    ),
-  ),
+  // TaskMenu(
+  //   value: '2',
+  //   label: 'Incomplete',
+  //   icon: Image.asset(
+  //     'assets/icons/incomplete.png',
+  //     height: 22,
+  //     color: Colors.grey,
+  //   ),
+  // ),
 ];

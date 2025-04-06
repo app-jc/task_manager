@@ -43,7 +43,7 @@ class _DailyQuoteStoryScreenState extends State<DailyQuoteStoryScreen> {
             Text('Habit of the Day'),
             Gap(20),
             Text(
-              "Forget yesterday - it has already forgotten you. Don't sweat tomorrow - you haven't even met. Instead, open your eyes and your heart to a truly precious gift - today.",
+              "Start with your most important task — before checking emails or social media.",
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.titleLarge,
             ),

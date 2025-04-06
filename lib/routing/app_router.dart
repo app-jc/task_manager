@@ -4,9 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:task_manager_coding_test/features/home/presentation/screens/daily_quote_story_screen.dart';
 import 'package:task_manager_coding_test/features/home/presentation/screens/home_screen.dart';
 import 'package:task_manager_coding_test/features/splash/presentation/splash_screen.dart';
+import 'package:task_manager_coding_test/features/tasks/domain/utilities/task_list_argument.dart';
+import 'package:task_manager_coding_test/features/tasks/presentation/screens/task_list_screen.dart';
+import 'package:task_manager_coding_test/features/tasks/presentation/screens/task_search_screen.dart';
 import 'package:task_manager_coding_test/routing/screen_paths.dart';
 
 import '../app_scaffold.dart';
+import '../features/tasks/data/models/task.dart';
 import '../features/tasks/presentation/screens/tasks_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -29,6 +33,23 @@ final appRouter = GoRouter(
         ]),
     AppRoute(ScreenPaths.quoteStory, (_) => DailyQuoteStoryScreen(),
         useFade: true),
+    AppRoute(ScreenPaths.taskSearch, (state) {
+      final tasks = state.extra as List<Task>;
+      return TaskSearchScreen(
+        tasks: tasks,
+      );
+    }, useFade: true),
+    AppRoute(
+      ScreenPaths.taskList,
+      (state) {
+        final arg = state.extra as TaskListArgument;
+        return TaskListScreen(
+          tasks: arg.tasks,
+          title: arg.title,
+        );
+      },
+      useFade: false,
+    ),
   ],
 );
 

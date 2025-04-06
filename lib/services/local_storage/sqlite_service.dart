@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../features/tasks/data/models/task.dart';
+
 class SqfliteService {
   static final SqfliteService _instance = SqfliteService._internal();
   factory SqfliteService() => _instance;
@@ -64,6 +66,56 @@ class SqfliteService {
           where: 'id = ?', whereArgs: [firstId]);
     } else {
       await db.insert(TABLE_APPCONFIG, {'theme_mode': themeMode});
+    }
+  }
+
+  Future<int> createTask(Task task) async {
+    try {
+      final db = await database;
+      return await db.insert('tasks', task.toJson());
+    } catch (e) {
+      debugPrint('SQFLITE: Fail to create task: $e');
+      return -1;
+    }
+  }
+
+  Future<List<Task>> getAllTasks() async {
+    try {
+      final db = await database;
+      final result = await db.query('tasks');
+      return result.map((json) => Task.fromJson(json)).toList();
+    } catch (e) {
+      debugPrint('SQFLITE: Fail to update task $e');
+      return [];
+    }
+  }
+
+  Future<int> updateTask(Task task) async {
+    try {
+      final db = await database;
+      return await db.update(
+        'tasks',
+        task.toJson(),
+        where: 'id = ?',
+        whereArgs: [task.id],
+      );
+    } catch (e) {
+      debugPrint('SQFLITE: Fail to update $e');
+      return -1;
+    }
+  }
+
+  Future<int> deleteTask(int id) async {
+    try {
+      final db = await database;
+      return await db.delete(
+        'tasks',
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      debugPrint('SQFLITE: Fail to delete $e');
+      return -1;
     }
   }
 }

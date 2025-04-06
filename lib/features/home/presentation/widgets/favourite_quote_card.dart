@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class FavouriteQuoteCard extends StatelessWidget {
-  const FavouriteQuoteCard({super.key});
-
+  const FavouriteQuoteCard({super.key, required this.quote});
+  final String quote;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +25,7 @@ class FavouriteQuoteCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Forget yesterday - it has already forgotten you. Don't sweat tomorrow - you haven't even met. Instead, open your eyes and your heart to a truly precious gift - today.",
+                    quote,
                     maxLines: 3,
                     textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
@@ -45,7 +45,7 @@ class FavouriteQuoteCard extends StatelessWidget {
                       ),
                       Gap(5),
                       Text(
-                        'Steve Maraboli',
+                        'Thich Nhat Hanh',
                         style: Theme.of(context).textTheme.bodySmall!,
                       ),
                     ],

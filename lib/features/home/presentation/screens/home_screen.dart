@@ -109,11 +109,17 @@ class HomeScreen extends StatelessWidget {
                       onTap: () {
                         _openDialog(context);
                       },
-                      child: FavouriteQuoteCard()),
+                      child: FavouriteQuoteCard(
+                        quote:
+                            "Hope is important because it can make the present moment less difficult to bear. If we believe that tomorrow will be better, we can bear a hardship today.",
+                      )),
                   Gap(12),
-                  FavouriteQuoteCard(),
-                  Gap(12),
-                  FavouriteQuoteCard(),
+                  FavouriteQuoteCard(
+                    quote:
+                        "Yesterday is history, tomorrow is a mystery, today is God's gift, that's why we call it the present",
+                  ),
+                  // Gap(12),
+                  // FavouriteQuoteCard(),
                 ],
               ),
             ),
