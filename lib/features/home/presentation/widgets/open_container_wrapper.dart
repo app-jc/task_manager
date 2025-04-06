@@ -8,11 +8,15 @@ class OpenContainerWrapper extends StatelessWidget {
     required this.closedBuilder,
     required this.transitionType,
     required this.onClosed,
+    this.useRootNavigator,
+    required this.openBuilder,
   });
 
   final CloseContainerBuilder closedBuilder;
+  final OpenContainerBuilder<bool> openBuilder;
   final ContainerTransitionType transitionType;
   final ClosedCallback<bool?> onClosed;
+  final bool? useRootNavigator;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +25,13 @@ class OpenContainerWrapper extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       closedElevation: 0,
       openElevation: 0,
+      
       closedColor: Colors.transparent,
       openColor: Colors.transparent,
       middleColor: Colors.transparent,
       transitionType: transitionType,
-      useRootNavigator: true,
-      openBuilder: (BuildContext context, VoidCallback _) {
-        return DailyQuoteStoryScreen();
-      },
+      useRootNavigator: useRootNavigator ?? true,
+      openBuilder: openBuilder,
       onClosed: onClosed,
       tappable: false,
       closedBuilder: closedBuilder,

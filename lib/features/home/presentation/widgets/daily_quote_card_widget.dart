@@ -56,14 +56,6 @@ class DailyQuoteCardWidget extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            // Expanded(child: SizedBox()),
-            // Align(
-            //     alignment: Alignment.topLeft,
-            //     child: Icon(
-            //       Icons.favorite_rounded,
-            //       size: 22,
-            //       color: Colors.redAccent,
-            //     ))
           ],
         ),
       ),

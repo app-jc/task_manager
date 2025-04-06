@@ -41,7 +41,7 @@ class TaskMenuCardWidget extends StatelessWidget {
             ],
           ),
           Gap(12),
-          icon,
+          icon
         ],
       ),
     );
