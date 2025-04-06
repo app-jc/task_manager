@@ -1,13 +1,16 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:task_manager_coding_test/features/home/presentation/widgets/daily_quote_card_widget.dart';
 import 'package:task_manager_coding_test/features/home/presentation/widgets/favourite_quote_card.dart';
 import 'package:task_manager_coding_test/features/home/presentation/widgets/favourite_quote_detail_card.dart';
+import 'package:task_manager_coding_test/features/home/presentation/widgets/my_tasks_overview_widget.dart';
 import 'package:task_manager_coding_test/features/home/presentation/widgets/open_container_wrapper.dart';
-import 'package:task_manager_coding_test/features/home/presentation/widgets/task_menu_card_widget.dart';
-
-import '../../models/task_menu.dart';
+import 'package:task_manager_coding_test/features/tasks/presentation/bloc/task_bloc.dart';
+import '../../../../routing/screen_paths.dart';
+import '../../../tasks/domain/utilities/task_list_argument.dart';
 import 'daily_quote_story_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,6 +18,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<TaskBloc>(context).add(FetchTasks());
+
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -52,35 +57,22 @@ class HomeScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Gap(8),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 16,
+                    GestureDetector(
+                      onTap: () {
+                        context.push(ScreenPaths.tasks);
+                      },
+                      child: Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 16,
+                      ),
                     ),
+                    Gap(22),
                   ],
                 ),
               ],
             ),
           ),
-          SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 22.0),
-              child: Row(
-                children: List.generate(
-                  kTaskMenu.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: TaskMenuCardWidget(
-                      value: kTaskMenu[index].value,
-                      label: kTaskMenu[index].label,
-                      icon: kTaskMenu[index].icon,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          MyTasksOverviewWidget(),
           Padding(
             padding: const EdgeInsets.only(left: 22.0),
             child: Column(
