@@ -120,20 +120,34 @@ class SqfliteService {
     }
   }
 
-  Future<int> createFavourite(DailyTips tip) async {
+  Future<int> addQuote(DailyTips tip) async {
     try {
       final db = await database;
-      return await db.insert('favourite_quotes_and_tips', tip.toJson());
+
+      // Check if the quote already exists by its unique identifier (e.g., 'id')
+      final List<Map<String, dynamic>> existingRows = await db.query(
+        'quotes',
+        where: 'id = ?',
+        whereArgs: [tip.id], // Assuming 'id' is the unique key
+      );
+
+      if (existingRows.isEmpty) {
+        // If the quote doesn't exist, insert it
+        return await db.insert('quotes', tip.toJson());
+      } else {
+        // If the quote already exists, return a value indicating no insert was made
+        return 0; // or any other value that fits your logic
+      }
     } catch (e) {
-      debugPrint('SQFLITE: Fail to create task: $e');
+      debugPrint('SQFLITE: Fail to add quote: $e');
       return -1;
     }
   }
 
-  Future<List<DailyTips>> getFavouriteQuotes() async {
+  Future<List<DailyTips>> getAllQuotes() async {
     try {
       final db = await database;
-      final result = await db.query('favourite_quotes_and_tips');
+      final result = await db.query('quotes');
       return result.map((json) => DailyTips.fromJson(json)).toList();
     } catch (e) {
       debugPrint('SQFLITE: Fail to update task $e');
@@ -141,16 +155,36 @@ class SqfliteService {
     }
   }
 
-  Future<int> deleteFavourite(int id) async {
+  Future<List<DailyTips>> getFavouriteQuotes() async {
     try {
       final db = await database;
-      return await db.delete(
-        'favourite_quotes_and_tips',
+      final result = await db.query(
+        'quotes',
+        where: 'isFavourite = ?',
+        whereArgs: [1],
+      );
+      return result.map((json) => DailyTips.fromJson(json)).toList();
+    } catch (e) {
+      debugPrint('SQFLITE: Failed to fetch favorite quotes: $e');
+      return [];
+    }
+  }
+
+  Future<int> deleteAllQuotes() async {
+    final db = await database;
+    return await db.delete('quotes'); // Deletes all rows in the table
+  }
+
+  Future<int> updateQuoteFavouriteStatus(DailyTips tip) async {
+    try {
+      final db = await database;
+      return await db.update(
+        'quotes',
+        {'isFavourite': tip.isFavourite},
         where: 'id = ?',
-        whereArgs: [id],
+        whereArgs: [tip.id],
       );
     } catch (e) {
-      debugPrint('SQFLITE: Fail to delete $e');
       return -1;
     }
   }

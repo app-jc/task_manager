@@ -11,7 +11,6 @@ import 'package:task_manager_coding_test/features/home/presentation/widgets/my_t
 import 'package:task_manager_coding_test/features/home/presentation/widgets/open_container_wrapper.dart';
 import 'package:task_manager_coding_test/features/tasks/presentation/bloc/task_bloc.dart';
 import '../../../../routing/screen_paths.dart';
-import '../../../tasks/domain/utilities/task_list_argument.dart';
 import 'daily_quote_story_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -58,11 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           return GestureDetector(
                               onTap: openContainer,
                               child: DailyQuoteCardWidget(
-                                tip: state.quote,
+                                tip: state.quotes[0],
                               ));
                         },
                         openBuilder: (context, closeContainer) {
-                          return DailyQuoteStoryScreen();
+                          return DailyQuoteStoryScreen(
+                            tips: state.quotes,
+                          );
                         },
                         transitionType: ContainerTransitionType.fadeThrough,
                         onClosed: (bool? data) {},
@@ -110,28 +111,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              _openDialog(context);
-                            },
-                            child: FavouriteQuoteCard(
-                              quote:
-                                  "Hope is important because it can make the present moment less difficult to bear. If we believe that tomorrow will be better, we can bear a hardship today.",
-                            )),
-                        Gap(12),
-                        FavouriteQuoteCard(
-                          quote:
-                              "Yesterday is history, tomorrow is a mystery, today is God's gift, that's why we call it the present",
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                      child: Row(
+                        children: List.generate(
+                          state.favoriteQuotes.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: GestureDetector(
+                                onTap: () {
+                                  _openDialog(context);
+                                },
+                                child: FavouriteQuoteCard(
+                                  quote: state.favoriteQuotes[index].text,
+                                  author:
+                                      state.favoriteQuotes[index].authorName,
+                                )),
+                          ),
                         ),
-                        // Gap(12),
-                        // FavouriteQuoteCard(),
-                      ],
+                      ),
                     ),
                   ),
                 ),

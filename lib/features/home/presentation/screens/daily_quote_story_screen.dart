@@ -2,14 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:task_manager_coding_test/features/home/models/daily_tips.dart';
 import 'package:task_manager_coding_test/features/home/presentation/widgets/story_indicator_widget.dart';
+
+import '../widgets/favourite_button_widget.dart';
 
 enum DailyQuoteStory { motivation, productivity }
 
 class DailyQuoteStoryScreen extends StatefulWidget {
   const DailyQuoteStoryScreen({
     super.key,
+    required this.tips,
   });
+  final List<DailyTips> tips;
 
   @override
   State<DailyQuoteStoryScreen> createState() => _DailyQuoteStoryScreenState();
@@ -43,19 +48,16 @@ class _DailyQuoteStoryScreenState extends State<DailyQuoteStoryScreen> {
             Text('Habit of the Day'),
             Gap(20),
             Text(
-              "Start with your most important task — before checking emails or social media.",
+              widget.tips[1].text,
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Expanded(flex: 2, child: SizedBox()),
             Padding(
-              padding: const EdgeInsets.only(left: 22.0, bottom: 32),
-              child: Icon(
-                Icons.favorite_rounded,
-                size: 22,
-                color: Colors.redAccent,
-              ),
-            ),
+                padding: const EdgeInsets.only(left: 22.0, bottom: 32),
+                child: FavouriteButtonWidget(
+                  tip: widget.tips[1],
+                )),
           ],
         ),
       ),
@@ -131,30 +133,28 @@ class _DailyQuoteStoryScreenState extends State<DailyQuoteStoryScreen> {
               children: [
                 CircleAvatar(
                   backgroundImage: CachedNetworkImageProvider(
-                      'https://zenquotes.io/img/steve-maraboli.jpg'),
+                    'https://ui-avatars.com/api/?name=${widget.tips[0].authorName}',
+                  ),
                 ),
                 Gap(8),
                 Text(
-                  'Steve Maraboli',
+                  widget.tips[0].authorName,
                   style: Theme.of(context).textTheme.bodyMedium!,
                 ),
               ],
             ),
             Gap(8),
             Text(
-              "Forget yesterday - it has already forgotten you. Don't sweat tomorrow - you haven't even met. Instead, open your eyes and your heart to a truly precious gift - today.",
+              widget.tips[0].text,
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Expanded(flex: 2, child: SizedBox()),
             Padding(
-              padding: const EdgeInsets.only(left: 22.0, bottom: 32),
-              child: Icon(
-                Icons.favorite_rounded,
-                size: 22,
-                color: Colors.redAccent,
-              ),
-            ),
+                padding: const EdgeInsets.only(left: 22.0, bottom: 32),
+                child: FavouriteButtonWidget(
+                  tip: widget.tips[0],
+                )),
           ],
         ),
       ),

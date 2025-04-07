@@ -31,8 +31,8 @@ final appRouter = GoRouter(
           AppRoute(ScreenPaths.home, (_) => HomeScreen(), useFade: true),
           AppRoute(ScreenPaths.tasks, (_) => TasksScreen(), useFade: true),
         ]),
-    AppRoute(ScreenPaths.quoteStory, (_) => DailyQuoteStoryScreen(),
-        useFade: true),
+    // AppRoute(ScreenPaths.quoteStory, (_) => DailyQuoteStoryScreen(),
+    //     useFade: true),
     AppRoute(ScreenPaths.taskSearch, (state) {
       final tasks = state.extra as List<Task>;
       return TaskSearchScreen(

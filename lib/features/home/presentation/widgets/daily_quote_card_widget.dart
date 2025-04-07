@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:task_manager_coding_test/features/home/models/daily_tips.dart';
@@ -39,8 +40,9 @@ class DailyQuoteCardWidget extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      'https://zenquotes.io/img/steve-maraboli.jpg'),
+                  backgroundImage: CachedNetworkImageProvider(
+                    'https://ui-avatars.com/api/?name=${tip!.authorName}',
+                  ),
                 ),
                 Gap(8),
                 Text(

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class FavouriteQuoteCard extends StatelessWidget {
-  const FavouriteQuoteCard({super.key, required this.quote});
+  const FavouriteQuoteCard(
+      {super.key, required this.quote, required this.author});
   final String quote;
+  final String author;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,7 +47,7 @@ class FavouriteQuoteCard extends StatelessWidget {
                       ),
                       Gap(5),
                       Text(
-                        'Thich Nhat Hanh',
+                        author,
                         style: Theme.of(context).textTheme.bodySmall!,
                       ),
                     ],

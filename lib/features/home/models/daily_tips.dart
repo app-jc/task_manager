@@ -1,29 +1,25 @@
-import 'package:uuid/uuid.dart';
-
 class DailyTips {
-  int id;
+  int? id;
   String text;
   String authorName;
+  int? isFavourite;
 
   DailyTips({
-    required this.id,
+    this.id,
     required this.text,
     required this.authorName,
+    this.isFavourite = 0,
   });
 
   factory DailyTips.fromJson(Map<String, dynamic> json) {
     return DailyTips(
-      id: json['id'] ?? Uuid().v4(),
-      text: json['q'] ?? '',
-      authorName: json['a'] ?? '',
-    );
+        id: json['id'] ?? -1,
+        text: json['q'] ?? '',
+        authorName: json['a'] ?? '',
+        isFavourite: json['isFavourite'] ?? 0);
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'q': text,
-      'a': authorName,
-    };
+    return {'q': text, 'a': authorName, 'isFavourite': isFavourite};
   }
 }
