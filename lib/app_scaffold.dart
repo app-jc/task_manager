@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'features/tasks/presentation/widgets/create_task_widget.dart';
 import 'routing/screen_paths.dart';
 
 class AppScaffold extends StatelessWidget {
@@ -67,17 +68,33 @@ class AppScaffold extends StatelessWidget {
             top: 5,
             left: MediaQuery.of(context).size.width / 2 -
                 ((kBottomNavigationBarHeight) / 2),
-            child: Container(
-              height: kBottomNavigationBarHeight,
-              width: kBottomNavigationBarHeight,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Theme.of(context).colorScheme.primary),
-              child: Center(
-                child: Image.asset(
-                  'assets/icons/plus.png',
-                  color: Colors.white,
-                  height: 18,
+            child: GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => const CreateTaskWidget(),
+                ).then((value) {
+                  // Refresh data if task was created (value == true)
+                  if (value == true) {
+                    // If you need to refresh the tasks list, you can add that logic here
+                    // For example, call a function to fetch tasks again
+                  }
+                });
+              },
+              child: Container(
+                height: kBottomNavigationBarHeight,
+                width: kBottomNavigationBarHeight,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).colorScheme.primary),
+                child: Center(
+                  child: Image.asset(
+                    'assets/icons/plus.png',
+                    color: Colors.white,
+                    height: 18,
+                  ),
                 ),
               ),
             ),

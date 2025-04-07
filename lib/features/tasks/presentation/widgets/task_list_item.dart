@@ -109,7 +109,7 @@ class _TaskListItemState extends State<TaskListItem> {
                     ),
                   ],
                 ),
-                Text(widget.task.priority,
+                Text(capitalizeFirstLetter(widget.task.priority),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: widget.task.status.toTaskStatus() ==
                                 TaskStatus.completed
@@ -122,5 +122,12 @@ class _TaskListItemState extends State<TaskListItem> {
         ),
       ),
     );
+  }
+
+  String capitalizeFirstLetter(String word) {
+    if (word.isEmpty) {
+      return word; // Return empty string if input is empty
+    }
+    return word[0].toUpperCase() + word.substring(1);
   }
 }
