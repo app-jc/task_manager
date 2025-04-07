@@ -80,7 +80,13 @@ class _TaskSearchScreenState extends State<TaskSearchScreen> {
               shrinkWrap: true,
               itemCount: filterTasks.length,
               itemBuilder: (context, index) {
-                return TaskListItem(task: filterTasks[index]);
+                return TaskListItem(
+                  task: filterTasks[index],
+                  onStatusChanged: () {
+                    filterTasks.removeAt(index);
+                    setState(() {});
+                  },
+                );
               },
               separatorBuilder: (BuildContext context, int index) {
                 return Gap(12);

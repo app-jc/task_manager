@@ -1,24 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:task_manager_coding_test/main.dart';
 import '../../data/models/task.dart';
 
 class TaskListItem extends StatefulWidget {
-  const TaskListItem({super.key, required this.task});
+  const TaskListItem(
+      {super.key, required this.task, required this.onStatusChanged});
   final Task task;
+  final void Function() onStatusChanged;
   @override
   State<TaskListItem> createState() => _TaskListItemState();
 }
 
 class _TaskListItemState extends State<TaskListItem> {
   bool itemCheck = false;
+  bool disableButton = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.task.status.toTaskStatus() == TaskStatus.completed
+      onTap: widget.task.status.toTaskStatus() == TaskStatus.completed ||
+              disableButton == true
           ? null
-          : () {
+          : () async {
               itemCheck = !itemCheck;
+              disableButton = true;
+              if (itemCheck == true) {
+                widget.task.status = TaskStatus.completed.name;
+              } else {
+                widget.task.status = TaskStatus.incomplete.name;
+              }
+              await sqflite.updateTask(widget.task).then((value) {
+                if (value == 1) {
+                  widget.onStatusChanged;
+                } else {
+                  disableButton = false;
+                }
+              });
+
               setState(() {});
             },
       child: Container(

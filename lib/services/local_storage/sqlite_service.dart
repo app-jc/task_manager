@@ -96,7 +96,7 @@ class SqfliteService {
       final db = await database;
       return await db.update(
         'tasks',
-        task.toJson(),
+        {'status': task.status},
         where: 'id = ?',
         whereArgs: [task.id],
       );

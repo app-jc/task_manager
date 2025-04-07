@@ -148,24 +148,24 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _openDialog(BuildContext context) {
-    showGeneralDialog(
-      context: context,
-      barrierLabel: "FadeScaleDialog",
-      barrierDismissible: true,
-      barrierColor: Colors.black54,
-      transitionDuration: Duration(milliseconds: 400),
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Center(child: FavouriteQuoteDetailCard()),
-        );
-      },
-      transitionBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeScaleTransition(
-          animation: animation,
-          child: child,
-        );
-      },
-    );
+    // showGeneralDialog(
+    //   context: context,
+    //   barrierLabel: "FadeScaleDialog",
+    //   barrierDismissible: true,
+    //   barrierColor: Colors.black54,
+    //   transitionDuration: Duration(milliseconds: 400),
+    //   pageBuilder: (context, animation, secondaryAnimation) {
+    //     return Padding(
+    //       padding: const EdgeInsets.all(12.0),
+    //       child: Center(child: FavouriteQuoteDetailCard()),
+    //     );
+    //   },
+    //   transitionBuilder: (context, animation, secondaryAnimation, child) {
+    //     return FadeScaleTransition(
+    //       animation: animation,
+    //       child: child,
+    //     );
+    //   },
+    // );
   }
 }

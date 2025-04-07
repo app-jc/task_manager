@@ -4,8 +4,11 @@ import 'package:task_manager_coding_test/features/tasks/presentation/widgets/tas
 import '../../data/models/task.dart';
 
 class DragAndDropListView extends StatefulWidget {
-  const DragAndDropListView({super.key, required this.tasks});
+  const DragAndDropListView(
+      {super.key, required this.tasks, required this.onStatusChanged});
   final List<Task> tasks;
+  final void Function() onStatusChanged;
+
   @override
   State<DragAndDropListView> createState() => _DragAndDropListViewState();
 }
@@ -29,6 +32,10 @@ class _DragAndDropListViewState extends State<DragAndDropListView> {
                 key: Key(index.toString()),
                 padding: const EdgeInsets.only(bottom: 12.0),
                 child: TaskListItem(
+                  onStatusChanged: () {
+                    widget.onStatusChanged;
+                    widget.tasks.removeAt(index);
+                  },
                   task: widget.tasks[index],
                 ),
               )),
