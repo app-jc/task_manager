@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager_coding_test/common/theme/bloc/theme_bloc.dart';
+import 'package:task_manager_coding_test/features/home/presentation/bloc/home_bloc.dart';
 import 'package:task_manager_coding_test/features/tasks/data/repositories/task_repository.dart';
 import 'package:task_manager_coding_test/features/tasks/presentation/bloc/task_bloc.dart';
 import 'package:task_manager_coding_test/routing/app_router.dart';
@@ -26,6 +27,9 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider<TaskBloc>(
           create: (BuildContext context) => TaskBloc(TaskRepository()),
+        ),
+        BlocProvider<HomeBloc>(
+          create: (BuildContext context) => HomeBloc(),
         ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) {

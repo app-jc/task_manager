@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:task_manager_coding_test/features/home/models/daily_tips.dart';
 
 import '../../features/tasks/data/models/task.dart';
 
@@ -110,6 +111,41 @@ class SqfliteService {
       final db = await database;
       return await db.delete(
         'tasks',
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    } catch (e) {
+      debugPrint('SQFLITE: Fail to delete $e');
+      return -1;
+    }
+  }
+
+  Future<int> createFavourite(DailyTips tip) async {
+    try {
+      final db = await database;
+      return await db.insert('favourite_quotes_and_tips', tip.toJson());
+    } catch (e) {
+      debugPrint('SQFLITE: Fail to create task: $e');
+      return -1;
+    }
+  }
+
+  Future<List<DailyTips>> getFavouriteQuotes() async {
+    try {
+      final db = await database;
+      final result = await db.query('favourite_quotes_and_tips');
+      return result.map((json) => DailyTips.fromJson(json)).toList();
+    } catch (e) {
+      debugPrint('SQFLITE: Fail to update task $e');
+      return [];
+    }
+  }
+
+  Future<int> deleteFavourite(int id) async {
+    try {
+      final db = await database;
+      return await db.delete(
+        'favourite_quotes_and_tips',
         where: 'id = ?',
         whereArgs: [id],
       );

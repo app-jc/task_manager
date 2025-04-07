@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:task_manager_coding_test/features/home/models/daily_tips.dart';
 
 class DailyQuoteCardWidget extends StatelessWidget {
-  const DailyQuoteCardWidget({super.key});
-
+  const DailyQuoteCardWidget({super.key, required this.tip});
+  final DailyTips? tip;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,14 +44,14 @@ class DailyQuoteCardWidget extends StatelessWidget {
                 ),
                 Gap(8),
                 Text(
-                  'Steve Maraboli',
+                  tip!.authorName,
                   style: Theme.of(context).textTheme.bodyMedium!,
                 ),
               ],
             ),
             Gap(8),
             Text(
-              "Forget yesterday - it has already forgotten you. Don't sweat tomorrow - you haven't even met. Instead, open your eyes and your heart to a truly precious gift - today.",
+              tip!.text,
               maxLines: 3,
               textAlign: TextAlign.left,
               overflow: TextOverflow.ellipsis,
